@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable</title>
+    <link rel="stylesheet" href="css/style1.css">
+</head>
+<body>
+    <h1>Welcome, <%= user.firstname %>!</h1>
+
+    <% if (timetable && timetable.length > 0) { %>
+        <h2>Your Timetable</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Subject</th>
+                    <th>Type</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% timetable.forEach(entry => { %>
+                    <tr>
+                        <td><%= entry.day %></td>
+                        <td><%= entry.subject %></td>
+                        <td><%= entry.type %></td>
+                        <td><%= entry.time %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } else { %>
+        <h2>No Timetable Found</h2>
+        <form action="/timetable/add" method="GET">
+            <button type="submit">Add Timetable</button>
+        </form>
+    <% } %>
+</body>
+</html>

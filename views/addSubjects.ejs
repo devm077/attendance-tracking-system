@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Working Days and Subjects</title>
+    <link rel="stylesheet" href="/css/style1.css">
+</head>
+<body>
+    <h1>Add Working Days and Subjects</h1>
+    
+    <form action="/timetable/createDaysAndSubjects" method="POST">
+        <h3>Select Working Days</h3>
+        <div id="working-days">
+            <% const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']; %>
+            <% days.forEach(day => { %>
+                <input type="checkbox" id="<%= day %>" name="workingDays[]" value="<%= day %>">
+                <label for="<%= day %>"><%= day %></label><br>
+            <% }); %>
+        </div>
+    
+        <h3>Add Subjects</h3>
+        <div id="subjects">
+            <div>
+                <input type="text" name="subjects[0][name]" placeholder="Subject Name" required>
+                <select name="subjects[0][type]" required>
+                    <option value="Lecture">Lecture</option>
+                    <option value="Lab">Lab</option>
+                    <option value="Both">Both</option>
+                </select>
+            </div>
+        </div>
+        
+        <button type="button" onclick="addSubject()">Add Another Subject</button>
+        <button type="submit">Submit</button>
+    
+        <script>
+            let subjectCount = 1;
+    
+            function addSubject() {
+                const subjectDiv = document.getElementById('subjects');
+                const newSubject = `
+                    <div>
+                        <input type="text" name="subjects[${subjectCount}][name]" placeholder="Subject Name" required>
+                        <select name="subjects[${subjectCount}][type]" required>
+                            <option value="Lecture">Lecture</option>
+                            <option value="Lab">Lab</option>
+                            <option value="Both">Both</option>
+                        </select>
+                    </div>
+                `;
+                subjectDiv.insertAdjacentHTML('beforeend', newSubject);
+                subjectCount++;
+            }
+        </script>
+    </form>
+    
+</body>
+</html>
